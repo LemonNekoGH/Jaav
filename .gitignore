@@ -1,0 +1,9 @@
+.gradle
+.idea
+build
+gradle/wrapper/gradle-wrapper.jar
+out
+*.iml
+*.interp
+*.tokens
+*.MF
