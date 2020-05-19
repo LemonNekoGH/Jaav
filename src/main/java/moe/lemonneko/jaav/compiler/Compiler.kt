@@ -10,6 +10,7 @@ import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes.*
 import java.io.File
+import java.lang.Exception
 import java.nio.file.Path
 import java.util.*
 import kotlin.collections.HashMap
@@ -30,12 +31,12 @@ class VariableDeclaration(private val variable: Variable) : Instruction {
                 } else if (value >= -65536 && value <= 65535) {
                     visitor.visitIntInsn(SIPUSH, value)
                 } else {
-                    visitor.visitIntInsn(LDC, value)
+                    visitor.visitLdcInsn(value)
                 }
                 visitor.visitVarInsn(ISTORE, variable.index)
             }
             JaavLexer.STRING -> {
-                visitor.visitLdcInsn(variable.value.substring(1,variable.value.length - 2))
+                visitor.visitLdcInsn(variable.value.substring(1,variable.value.length - 1))
                 visitor.visitVarInsn(ASTORE, variable.index)
             }
         }
@@ -71,11 +72,19 @@ class JaavTreeWalkListener : JaavBaseListener() {
         ctx ?: return
         val id = ctx.ID()
         if (id == null) {
-            instructionQueue.add(PrintInstruction(ctx.value().text))
+            if (ctx.value().NUMBER() != null){
+                instructionQueue.add(PrintInstruction(ctx.value().text))
+            }else{
+                instructionQueue.add(PrintInstruction(ctx.value().text.substring(1,ctx.value().text.length - 1)))
+            }
         } else {
             val idText = id.text
-            val value = variables[idText]?.value
+            var value = variables[idText]?.value
                 ?: throw SyntaxError("variable with name [$idText] is undefined.", id.symbol.line)
+            val type = variables[idText]!!.type
+            if (type == JaavLexer.STRING){
+                value = value.substring(1,value.length - 1)
+            }
             instructionQueue.add(PrintInstruction(value))
         }
     }
@@ -110,18 +119,22 @@ fun generateByteCode(instructions: Queue<Instruction>, name: String): ByteArray 
 }
 
 fun main(args: Array<String>) {
-    if (args.isEmpty()){
-        println("error: no input file.")
-        return
+    try {
+        if (args.isEmpty()){
+            println("error: no input file.")
+            return
+        }
+        val path = args[0]
+        val file = File(path).absoluteFile
+        if (!file.exists()){
+            println("error: file not exists.")
+            return
+        }
+        val instructions = getInstructions(file)
+        val byteArray = generateByteCode(instructions,file.nameWithoutExtension)
+        val outFile = File(file.parent,file.nameWithoutExtension + ".jy")
+        outFile.writeBytes(byteArray)
+    }catch (e: Throwable){
+        println(e.message)
     }
-    val path = args[0]
-    val file = File(path).absoluteFile
-    if (!file.exists()){
-        println("error: file not exists.")
-        return
-    }
-    val instructions = getInstructions(file)
-    val byteArray = generateByteCode(instructions,file.nameWithoutExtension)
-    val outFile = File(file.parent,file.nameWithoutExtension + ".jy")
-    outFile.writeBytes(byteArray)
 }
