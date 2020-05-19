@@ -35,7 +35,7 @@ class VariableDeclaration(private val variable: Variable) : Instruction {
                 visitor.visitVarInsn(ISTORE, variable.index)
             }
             JaavLexer.STRING -> {
-                visitor.visitLdcInsn(variable.value.substring(1 until variable.value.length))
+                visitor.visitLdcInsn(variable.value.substring(1,variable.value.length - 2))
                 visitor.visitVarInsn(ASTORE, variable.index)
             }
         }
