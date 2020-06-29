@@ -1,4 +1,4 @@
-// Generated from Jaav.g4 by ANTLR 4.8
+// Generated from D:/Projects/IdeaProjects/jaav/src/main/antlr\Jaav.g4 by ANTLR 4.8
 
 package moe.lemonneko.jaav;
 

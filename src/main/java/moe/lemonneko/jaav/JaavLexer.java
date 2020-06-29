@@ -1,4 +1,4 @@
-// Generated from Jaav.g4 by ANTLR 4.8
+// Generated from D:/Projects/IdeaProjects/jaav/src/main/antlr\Jaav.g4 by ANTLR 4.8
 
 package moe.lemonneko.jaav;
 
@@ -19,7 +19,7 @@ public class JaavLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		VAR=1, EQUALS=2, PRINT=3, ID=4, NUMBER=5, STRING=6, WS=7;
+		VAR=1, VAR_DEF_INFIX=2, EQUALS=3, PRINT=4, ID=5, NUMBER=6, STRING=7, WS=8;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -30,20 +30,23 @@ public class JaavLexer extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"VAR", "EQUALS", "PRINT", "ID", "NUMBER", "STRING", "WS"
+			"VAR", "VAR_DEF_INFIX", "EQUALS", "PRINT", "ID", "NUMBER", "STRING", 
+			"WS"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'var'", "'='", "'print'"
+			null, "'\u58F0\u660E\u540D\u4E3A'", "'\u7684\u53D8\u91CF'", "'\u8D4B\u503C\u4E3A'", 
+			"'\u5411\u63A7\u5236\u53F0\u8F93\u51FA'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "VAR", "EQUALS", "PRINT", "ID", "NUMBER", "STRING", "WS"
+			null, "VAR", "VAR_DEF_INFIX", "EQUALS", "PRINT", "ID", "NUMBER", "STRING", 
+			"WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -105,23 +108,26 @@ public class JaavLexer extends Lexer {
 	public ATN getATN() { return _ATN; }
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2\t;\b\1\4\2\t\2\4"+
-		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\3\2\3\2\3\2\3\2\3\3\3\3"+
-		"\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\7\5 \n\5\f\5\16\5#\13\5\3\6\3\6\7\6\'"+
-		"\n\6\f\6\16\6*\13\6\3\7\3\7\7\7.\n\7\f\7\16\7\61\13\7\3\7\3\7\3\b\6\b"+
-		"\66\n\b\r\b\16\b\67\3\b\3\b\3/\2\t\3\3\5\4\7\5\t\6\13\7\r\b\17\t\3\2\7"+
-		"\4\2C\\c|\5\2\62;C\\c|\3\2\63;\3\2\62;\5\2\13\f\17\17\"\"\2>\2\3\3\2\2"+
-		"\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3"+
-		"\2\2\2\3\21\3\2\2\2\5\25\3\2\2\2\7\27\3\2\2\2\t\35\3\2\2\2\13$\3\2\2\2"+
-		"\r+\3\2\2\2\17\65\3\2\2\2\21\22\7x\2\2\22\23\7c\2\2\23\24\7t\2\2\24\4"+
-		"\3\2\2\2\25\26\7?\2\2\26\6\3\2\2\2\27\30\7r\2\2\30\31\7t\2\2\31\32\7k"+
-		"\2\2\32\33\7p\2\2\33\34\7v\2\2\34\b\3\2\2\2\35!\t\2\2\2\36 \t\3\2\2\37"+
-		"\36\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"\n\3\2\2\2#!\3\2\2\2$(\t"+
-		"\4\2\2%\'\t\5\2\2&%\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2)\f\3\2\2\2"+
-		"*(\3\2\2\2+/\7$\2\2,.\13\2\2\2-,\3\2\2\2.\61\3\2\2\2/\60\3\2\2\2/-\3\2"+
-		"\2\2\60\62\3\2\2\2\61/\3\2\2\2\62\63\7$\2\2\63\16\3\2\2\2\64\66\t\6\2"+
-		"\2\65\64\3\2\2\2\66\67\3\2\2\2\67\65\3\2\2\2\678\3\2\2\289\3\2\2\29:\b"+
-		"\b\2\2:\20\3\2\2\2\7\2!(/\67\3\b\2\2";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2\nE\b\1\4\2\t\2\4"+
+		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\3\2\3\2"+
+		"\3\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3"+
+		"\6\7\6*\n\6\f\6\16\6-\13\6\3\7\3\7\7\7\61\n\7\f\7\16\7\64\13\7\3\b\3\b"+
+		"\7\b8\n\b\f\b\16\b;\13\b\3\b\3\b\3\t\6\t@\n\t\r\t\16\tA\3\t\3\t\39\2\n"+
+		"\3\3\5\4\7\5\t\6\13\7\r\b\17\t\21\n\3\2\7\4\2C\\c|\5\2\62;C\\c|\3\2\63"+
+		";\3\2\62;\5\2\13\f\17\17\"\"\2H\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2"+
+		"\t\3\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\3\23\3\2"+
+		"\2\2\5\30\3\2\2\2\7\34\3\2\2\2\t \3\2\2\2\13\'\3\2\2\2\r.\3\2\2\2\17\65"+
+		"\3\2\2\2\21?\3\2\2\2\23\24\7\u58f2\2\2\24\25\7\u6610\2\2\25\26\7\u540f"+
+		"\2\2\26\27\7\u4e3c\2\2\27\4\3\2\2\2\30\31\7\u7686\2\2\31\32\7\u53da\2"+
+		"\2\32\33\7\u91d1\2\2\33\6\3\2\2\2\34\35\7\u8d4d\2\2\35\36\7\u503e\2\2"+
+		"\36\37\7\u4e3c\2\2\37\b\3\2\2\2 !\7\u5413\2\2!\"\7\u63a9\2\2\"#\7\u5238"+
+		"\2\2#$\7\u53f2\2\2$%\7\u8f95\2\2%&\7\u51fc\2\2&\n\3\2\2\2\'+\t\2\2\2("+
+		"*\t\3\2\2)(\3\2\2\2*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2,\f\3\2\2\2-+\3\2\2\2"+
+		".\62\t\4\2\2/\61\t\5\2\2\60/\3\2\2\2\61\64\3\2\2\2\62\60\3\2\2\2\62\63"+
+		"\3\2\2\2\63\16\3\2\2\2\64\62\3\2\2\2\659\7$\2\2\668\13\2\2\2\67\66\3\2"+
+		"\2\28;\3\2\2\29:\3\2\2\29\67\3\2\2\2:<\3\2\2\2;9\3\2\2\2<=\7$\2\2=\20"+
+		"\3\2\2\2>@\t\6\2\2?>\3\2\2\2@A\3\2\2\2A?\3\2\2\2AB\3\2\2\2BC\3\2\2\2C"+
+		"D\b\t\2\2D\22\3\2\2\2\7\2+\629A\3\b\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

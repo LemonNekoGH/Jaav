@@ -1,12 +1,15 @@
-// Generated from Jaav.g4 by ANTLR 4.8
+// Generated from D:/Projects/IdeaProjects/jaav/src/main/antlr\Jaav.g4 by ANTLR 4.8
 
 package moe.lemonneko.jaav;
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class JaavParser extends Parser {
@@ -16,7 +19,7 @@ public class JaavParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		VAR=1, EQUALS=2, PRINT=3, ID=4, NUMBER=5, STRING=6, WS=7;
+		VAR=1, VAR_DEF_INFIX=2, EQUALS=3, PRINT=4, ID=5, NUMBER=6, STRING=7, WS=8;
 	public static final int
 		RULE_compilationUnit = 0, RULE_variable = 1, RULE_equals = 2, RULE_print = 3, 
 		RULE_value = 4;
@@ -29,13 +32,15 @@ public class JaavParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'var'", "'='", "'print'"
+			null, "'\u58F0\u660E\u540D\u4E3A'", "'\u7684\u53D8\u91CF'", "'\u8D4B\u503C\u4E3A'", 
+			"'\u5411\u63A7\u5236\u53F0\u8F93\u51FA'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "VAR", "EQUALS", "PRINT", "ID", "NUMBER", "STRING", "WS"
+			null, "VAR", "VAR_DEF_INFIX", "EQUALS", "PRINT", "ID", "NUMBER", "STRING", 
+			"WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -115,6 +120,11 @@ public class JaavParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof JaavListener ) ((JaavListener)listener).exitCompilationUnit(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JaavVisitor ) return ((JaavVisitor<? extends T>)visitor).visitCompilationUnit(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final CompilationUnitContext compilationUnit() throws RecognitionException {
@@ -170,6 +180,7 @@ public class JaavParser extends Parser {
 	public static class VariableContext extends ParserRuleContext {
 		public TerminalNode VAR() { return getToken(JaavParser.VAR, 0); }
 		public TerminalNode ID() { return getToken(JaavParser.ID, 0); }
+		public TerminalNode VAR_DEF_INFIX() { return getToken(JaavParser.VAR_DEF_INFIX, 0); }
 		public EqualsContext equals() {
 			return getRuleContext(EqualsContext.class,0);
 		}
@@ -188,6 +199,11 @@ public class JaavParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof JaavListener ) ((JaavListener)listener).exitVariable(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JaavVisitor ) return ((JaavVisitor<? extends T>)visitor).visitVariable(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final VariableContext variable() throws RecognitionException {
@@ -201,8 +217,10 @@ public class JaavParser extends Parser {
 			setState(20);
 			match(ID);
 			setState(21);
-			equals();
+			match(VAR_DEF_INFIX);
 			setState(22);
+			equals();
+			setState(23);
 			value();
 			}
 		}
@@ -231,6 +249,11 @@ public class JaavParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof JaavListener ) ((JaavListener)listener).exitEquals(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JaavVisitor ) return ((JaavVisitor<? extends T>)visitor).visitEquals(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final EqualsContext equals() throws RecognitionException {
@@ -239,7 +262,7 @@ public class JaavParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(24);
+			setState(25);
 			match(EQUALS);
 			}
 		}
@@ -272,6 +295,11 @@ public class JaavParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof JaavListener ) ((JaavListener)listener).exitPrint(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JaavVisitor ) return ((JaavVisitor<? extends T>)visitor).visitPrint(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PrintContext print() throws RecognitionException {
@@ -280,21 +308,21 @@ public class JaavParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(26);
+			setState(27);
 			match(PRINT);
-			setState(29);
+			setState(30);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
 				{
-				setState(27);
+				setState(28);
 				match(ID);
 				}
 				break;
 			case NUMBER:
 			case STRING:
 				{
-				setState(28);
+				setState(29);
 				value();
 				}
 				break;
@@ -329,6 +357,11 @@ public class JaavParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof JaavListener ) ((JaavListener)listener).exitValue(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JaavVisitor ) return ((JaavVisitor<? extends T>)visitor).visitValue(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ValueContext value() throws RecognitionException {
@@ -338,7 +371,7 @@ public class JaavParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(31);
+			setState(32);
 			_la = _input.LA(1);
 			if ( !(_la==NUMBER || _la==STRING) ) {
 			_errHandler.recoverInline(this);
@@ -362,16 +395,16 @@ public class JaavParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t$\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\n%\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\7\2\17\n\2\f\2\16\2\22\13\2\3\2\3\2"+
-		"\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\5\3\5\3\5\5\5 \n\5\3\6\3\6\3\6\2\2\7\2"+
-		"\4\6\b\n\2\3\3\2\7\b\2!\2\20\3\2\2\2\4\25\3\2\2\2\6\32\3\2\2\2\b\34\3"+
-		"\2\2\2\n!\3\2\2\2\f\17\5\4\3\2\r\17\5\b\5\2\16\f\3\2\2\2\16\r\3\2\2\2"+
-		"\17\22\3\2\2\2\20\16\3\2\2\2\20\21\3\2\2\2\21\23\3\2\2\2\22\20\3\2\2\2"+
-		"\23\24\7\2\2\3\24\3\3\2\2\2\25\26\7\3\2\2\26\27\7\6\2\2\27\30\5\6\4\2"+
-		"\30\31\5\n\6\2\31\5\3\2\2\2\32\33\7\4\2\2\33\7\3\2\2\2\34\37\7\5\2\2\35"+
-		" \7\6\2\2\36 \5\n\6\2\37\35\3\2\2\2\37\36\3\2\2\2 \t\3\2\2\2!\"\t\2\2"+
-		"\2\"\13\3\2\2\2\5\16\20\37";
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\5\3\5\3\5\5\5!\n\5\3\6\3\6\3\6\2\2"+
+		"\7\2\4\6\b\n\2\3\3\2\b\t\2\"\2\20\3\2\2\2\4\25\3\2\2\2\6\33\3\2\2\2\b"+
+		"\35\3\2\2\2\n\"\3\2\2\2\f\17\5\4\3\2\r\17\5\b\5\2\16\f\3\2\2\2\16\r\3"+
+		"\2\2\2\17\22\3\2\2\2\20\16\3\2\2\2\20\21\3\2\2\2\21\23\3\2\2\2\22\20\3"+
+		"\2\2\2\23\24\7\2\2\3\24\3\3\2\2\2\25\26\7\3\2\2\26\27\7\7\2\2\27\30\7"+
+		"\4\2\2\30\31\5\6\4\2\31\32\5\n\6\2\32\5\3\2\2\2\33\34\7\5\2\2\34\7\3\2"+
+		"\2\2\35 \7\6\2\2\36!\7\7\2\2\37!\5\n\6\2 \36\3\2\2\2 \37\3\2\2\2!\t\3"+
+		"\2\2\2\"#\t\2\2\2#\13\3\2\2\2\5\16\20 ";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

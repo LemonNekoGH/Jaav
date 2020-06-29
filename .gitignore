@@ -7,3 +7,4 @@ out
 *.interp
 *.tokens
 *.MF
+/src/test/resources/jaavexec.jar
